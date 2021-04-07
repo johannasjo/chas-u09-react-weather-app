@@ -39,32 +39,40 @@ Instead, it will copy all the configuration files and the transitive dependencie
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
+## Task
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+As a user you should be able to:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- See following weather conditions for current position:
 
-### Code Splitting
+  - Temperature
+  - Wind strength
+  - Humidity
+  - Sunrise and sunset (what time)
+  - Choose between Fahrenheit and Celsius
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Get a forecast of the coming 5 days (based on above)
 
-### Analyzing the Bundle Size
+  - Short overview of the week
+  - Every third hour for the present 24 hours
+  - 5-day forecast
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Requirements
 
-### Making a Progressive Web App
+- Use weather API (SMHI, YR.NO)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+- Use positioning through geolocation in the browser
 
-### Advanced Configuration
+- Design/color and shape based on weather.com or similar application
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Extra-Dextra
 
-### Deployment
+- User can set/search after weather at a certain position manually
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+- User can save places for forecasts in a list
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- User can get graphs of the prognosis over time that includes:
+  - Highest/lowest temperature
+  - Average temperature (highest and lowest)
+  - Average precipitation
+  - User can show weather fronts on a map with radar (API can be found here: https://opendata.smhi.se/apidocs/radar/)
