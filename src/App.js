@@ -34,7 +34,7 @@ function App() {
       // get keys from the incoming object
       .then(({ lat, lon }) => {
         fetch(
-          `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=`
+          `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
         )
           .then((response) => {
             return response.json();
@@ -49,12 +49,17 @@ function App() {
   const formatWeatherData = (apiReply) => ({
     name: apiReply.name,
     id: apiReply.id,
+    temp: apiReply.main.temp,
+    humidity: apiReply.main.humidity,
+    windSpeed: apiReply.wind.speed,
+    sunrise: apiReply.sys.sunrise,
+    sunset: apiReply.sys.sunset,
   });
 
   return (
     <div className="App">
       <div className="container">
-        <h2>Todays weather</h2>
+        <h1>Weather</h1>
       </div>
       {weatherState && <Weather weather={weatherState} />}
     </div>
