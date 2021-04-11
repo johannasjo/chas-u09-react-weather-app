@@ -1,0 +1,39 @@
+.card {
+    background-color: rgba(86, 86, 141, 0.2);
+}
+
+.cardTitle {
+    font-size: 35px;
+    padding-left: 30px;
+    padding-top: 0.5em;
+}
+
+.cardSubtitle {
+    font-size: 15px;
+    color: rgb(78, 75, 75);
+    padding-left: 50px;
+}
+
+.temp {
+    font-size: 4em;
+    text-align: center;
+}
+
+.cardTitle, .cardSubtitle {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.subCats {
+    display: flex;
+    justify-content: space-around;
+    padding: 1em;
+    
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    padding: 0em 0.5em;
+    border: 1px solid black;
+}

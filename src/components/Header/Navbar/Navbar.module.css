@@ -1,0 +1,22 @@
+.navList {
+  background-color: #3498DB;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: space-around;
+
+}
+
+.navLink {
+    color: white;
+    padding: 16px;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.navLink:hover {
+  text-decoration: underline;
+  transform: scale(1.15); 
+}
