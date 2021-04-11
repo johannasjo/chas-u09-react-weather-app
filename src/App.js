@@ -23,6 +23,11 @@ function App() {
   //   }
   // );
 
+  // convert time for sunrise/sunset
+  function convertEpochToLocaleTime(epochTime) {
+    return new Date(parseInt(epochTime) * 1000).toLocaleTimeString();
+  }
+
   // use geolocation to fetch weather for that position
   useEffect(() => {
     setLoadingState(true);
@@ -52,8 +57,8 @@ function App() {
     temp: apiReply.main.temp,
     humidity: apiReply.main.humidity,
     windSpeed: apiReply.wind.speed,
-    sunrise: apiReply.sys.sunrise,
-    sunset: apiReply.sys.sunset,
+    sunrise: convertEpochToLocaleTime(apiReply.sys.sunrise),
+    sunset: convertEpochToLocaleTime(apiReply.sys.sunset),
   });
 
   return (
