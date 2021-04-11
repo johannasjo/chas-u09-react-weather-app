@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useState } from 'react';
-import Weather from './components/Weather';
+import Weather from './components/Weather/Weather';
 import DisplayHeader from './components/Header/DisplayHeader';
 
 function App() {
