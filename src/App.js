@@ -1,6 +1,7 @@
 import './App.css';
 import { useEffect, useState } from 'react';
 import Weather from './components/Weather';
+import DisplayHeader from './components/Header/DisplayHeader';
 
 function App() {
   const [loadingState, setLoadingState] = useState(null);
@@ -53,6 +54,7 @@ function App() {
 
   const formatWeatherData = (apiReply) => ({
     name: apiReply.name,
+    country: apiReply.sys.country,
     id: apiReply.id,
     temp: apiReply.main.temp,
     humidity: apiReply.main.humidity,
@@ -63,9 +65,7 @@ function App() {
 
   return (
     <div className="App">
-      <div className="container">
-        <h1>Weather</h1>
-      </div>
+      <DisplayHeader />
       {weatherState && <Weather weather={weatherState} />}
     </div>
   );
