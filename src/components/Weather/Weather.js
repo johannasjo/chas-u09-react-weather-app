@@ -16,7 +16,14 @@ const Weather = (props) => {
         As of {new Date().toLocaleTimeString()}
       </span>
       <div key={weather.id}>
-        <h1 className={styles.temp}>{weather.temp}</h1>
+        <div className={styles.tempWrapper}>
+          <h1 className={styles.tempTitle}>{weather.temp}</h1>
+          <img
+            src={weather.icon}
+            className={styles.weatherIcon}
+            alt="icon symbolizing hte weather today"
+          />
+        </div>
         <div className={styles.subCats}>
           <div className={styles.wrapper}>
             <h3>Wind speed: </h3>

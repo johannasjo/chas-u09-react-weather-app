@@ -1,22 +1,22 @@
 .card {
-    background-color: rgba(86, 86, 141, 0.2);
+    background-color:rgba(30, 30, 192, 0.85);
+    color: whitesmoke;
 }
 
 .cardTitle {
-    font-size: 35px;
+    font-size: 40px;
     padding-left: 30px;
     padding-top: 0.5em;
 }
 
 .cardSubtitle {
-    font-size: 15px;
-    color: rgb(78, 75, 75);
+    font-size: 25px;
+    color: rgb(14, 13, 13);
     padding-left: 50px;
 }
 
-.temp {
-    font-size: 4em;
-    text-align: center;
+.tempTitle {
+    font-size: 5em;
 }
 
 .cardTitle, .cardSubtitle {
@@ -27,7 +27,6 @@
 .subCats {
     display: flex;
     justify-content: space-around;
-    padding: 1em;
     
 }
 
@@ -36,4 +35,15 @@
     flex-direction: column;
     padding: 0em 0.5em;
     border: 1px solid black;
+    margin-bottom: 1em;
+}
+
+.weatherIcon {
+    height: 100px;
+    width: 100px;
+}
+
+.tempWrapper {
+    display: flex;
+    justify-content: space-around;
 }
