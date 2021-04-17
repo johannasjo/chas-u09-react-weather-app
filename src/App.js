@@ -80,9 +80,7 @@ function App() {
         <Route path="/today">
           {currentWeatherState && <Weather weather={currentWeatherState} />}
         </Route>
-        <Route path="/longterm">
-          <LongtermWeather />
-        </Route>
+        <Route path="/longterm" component={LongtermWeather}></Route>
       </Switch>
     </Router>
   );

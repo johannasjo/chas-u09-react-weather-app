@@ -3,12 +3,15 @@ import { useEffect, useState } from 'react';
 import styles from './LongtermWeather.module.css';
 
 const LongtermWeather = (props) => {
+  console.log(props);
   // destructure props
   const { weather } = props;
 
   const [loadingState, setLoadingState] = useState(null);
   const [longtermWeatherState, setLongtermWeatherState] = useState(null);
-  const daily = true;
+  const daily = new URLSearchParams(props.location.search).has('daily');
+
+  console.log(daily);
 
   function convertEpochToLocaleTime(epochTime) {
     return new Date(parseInt(epochTime) * 1000).toLocaleTimeString();
@@ -63,7 +66,6 @@ const LongtermWeather = (props) => {
           ? formatDailyWeatherData(apiReply)
           : formatHourlyWeatherData(apiReply);
         setLongtermWeatherState(weatherData);
-        console.log(formatDailyWeatherData(apiReply));
         setLoadingState(false);
       });
   }, []);
