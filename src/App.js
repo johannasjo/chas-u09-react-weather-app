@@ -35,6 +35,7 @@ function App() {
     setLoadingState(true);
     getPosition()
       .then((pos) => {
+        console.log({ currentPosition: pos });
         const { latitude: lat, longitude: lon } = pos.coords;
         return { lat, lon };
       })
@@ -47,6 +48,7 @@ function App() {
             return response.json();
           })
           .then((apiReply) => {
+            console.log({ currentWeatherApiReply: apiReply });
             setCurrentWeatherState(formatWeatherData(apiReply));
             setLoadingState(false);
           });

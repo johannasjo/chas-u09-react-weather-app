@@ -8,14 +8,31 @@ const LongtermWeather = (props) => {
 
   const [loadingState, setLoadingState] = useState(null);
   const [longtermWeatherState, setLongtermWeatherState] = useState(null);
+  const daily = true;
 
   function convertEpochToLocaleTime(epochTime) {
     return new Date(parseInt(epochTime) * 1000).toLocaleTimeString();
   }
 
+  function convertEpochToLocaleDate(epochTime) {
+    return new Date(parseInt(epochTime) * 1000).toLocaleDateString();
+  }
+
   const iconUrl = 'http://openweathermap.org/img/wn/';
 
-  const formatWeatherData = (apiReply) => {
+  const formatDailyWeatherData = (apiReply) => {
+    return apiReply.daily.map((item) => ({
+      dateTime: convertEpochToLocaleDate(item.dt),
+      temp: Math.floor(item.temp.day),
+      humidity: item.humidity,
+      windSpeed: item.wind_speed,
+      icon: `${iconUrl}${item.weather[0].icon}.png`,
+      main: item.weather[0].main,
+      // sunrise & sunset
+    }));
+  };
+
+  const formatHourlyWeatherData = (apiReply) => {
     return apiReply.list.map((item) => ({
       dateTime: convertEpochToLocaleTime(item.dt),
       temp: Math.floor(item.main.temp),
@@ -32,15 +49,21 @@ const LongtermWeather = (props) => {
     setLoadingState(true);
     // get keys from the incoming object
 
-    fetch(
-      `http://api.openweathermap.org/data/2.5/forecast?q=stockholm&units=metric&cnt=8&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
-    )
+    const lat = 59.3;
+    const lon = 18.07;
+    const dailyWeatherApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,current,hourly,minutely&appid=${process.env.REACT_APP_WEATHER_API_KEY}`;
+    const hourlyWeatherApiUrl = `http://api.openweathermap.org/data/2.5/forecast?q=stockholm&units=metric&cnt=8&appid=${process.env.REACT_APP_WEATHER_API_KEY}`;
+    fetch(daily ? dailyWeatherApiUrl : hourlyWeatherApiUrl)
       .then((response) => {
         return response.json();
       })
       .then((apiReply) => {
-        setLongtermWeatherState(formatWeatherData(apiReply));
-        console.log(formatWeatherData(apiReply));
+        console.log({ longtermWeatherApiReply: apiReply });
+        const weatherData = daily
+          ? formatDailyWeatherData(apiReply)
+          : formatHourlyWeatherData(apiReply);
+        setLongtermWeatherState(weatherData);
+        console.log(formatDailyWeatherData(apiReply));
         setLoadingState(false);
       });
   }, []);
