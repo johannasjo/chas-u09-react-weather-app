@@ -17,12 +17,15 @@ const Weather = (props) => {
       </span>
       <div key={weather.id}>
         <div className={styles.tempWrapper}>
-          <h1 className={styles.tempTitle}>{weather.temp}</h1>
-          <img
-            src={weather.icon}
-            className={styles.weatherIcon}
-            alt="icon symbolizing hte weather today"
-          />
+          <h1 className={styles.tempCelcius}>{weather.temp}°C</h1>
+          <div className={styles.iconWrapper}>
+            <img
+              src={weather.icon}
+              className={styles.weatherIcon}
+              alt="icon symbolizing hte weather today"
+            />
+            <h2>{weather.main}</h2>
+          </div>
         </div>
         <div className={styles.subCats}>
           <div className={styles.wrapper}>

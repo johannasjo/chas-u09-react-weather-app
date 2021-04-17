@@ -15,10 +15,6 @@
     padding-left: 50px;
 }
 
-.tempTitle {
-    font-size: 5em;
-}
-
 .cardTitle, .cardSubtitle {
     display: flex;
     justify-content: flex-start;
@@ -39,11 +35,22 @@
 }
 
 .weatherIcon {
-    height: 100px;
-    width: 100px;
+    height: 7em;
+    width: 7em;
 }
 
 .tempWrapper {
     display: flex;
     justify-content: space-around;
 }
+
+.tempCelcius {
+    font-size: 6em;
+}
+
+.iconWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
