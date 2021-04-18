@@ -10,7 +10,6 @@ const LongtermWeather = (props) => {
   const cityContext = useCityContext();
   const locationContext = useLocationContext();
   const temperatureContext = useTemperatureContext();
-  const daily = new URLSearchParams(props.location.search).has('daily');
 
   function convertEpochToLocaleTime(epochTime) {
     return new Date(parseInt(epochTime) * 1000).toLocaleTimeString();
@@ -54,6 +53,8 @@ const LongtermWeather = (props) => {
       return;
     }
 
+    const daily = new URLSearchParams(props.location.search).has('daily');
+
     const { currentPosition } = locationContext;
 
     const dailyWeatherQueryParams = new URLSearchParams({
@@ -83,7 +84,7 @@ const LongtermWeather = (props) => {
         setLongtermWeatherState(weatherData);
         setLoadingState(false);
       });
-  }, [cityContext, locationContext, temperatureContext]);
+  }, [cityContext, locationContext, temperatureContext, props.location.search]);
 
   // check if props is undefined
   if (!longtermWeatherState || longtermWeatherState.length === 0)

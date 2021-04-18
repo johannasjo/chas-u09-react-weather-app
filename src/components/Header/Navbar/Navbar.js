@@ -14,7 +14,9 @@ function Navbar() {
             <NavbarLink to={`/longterm`}> 3 Hours</NavbarLink>
           </li>
           <li className={styles.navLink}>
-            <NavbarLink to={`/5days`}> 5 Days</NavbarLink>
+            <NavbarLink to={`/longterm?daily`} replace>
+              5 Days
+            </NavbarLink>
           </li>
           <li className={styles.navLink}>
             <NavbarLink to={`/graphs`}> Graphs</NavbarLink>
