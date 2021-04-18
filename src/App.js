@@ -12,23 +12,26 @@ import DisplayHeader from './components/Header/DisplayHeader';
 import LongtermWeather from './components/Weather/LongtermWeather/LongtermWeather';
 import { LocationContextProvider } from './context/LocationContext';
 import { CityContextProvider } from './context/CityContext';
+import { TemperatureContextProvider } from './context/TemperatureContext';
 
 function App() {
   return (
-    <LocationContextProvider>
-      <CityContextProvider>
-        <Router>
-          <DisplayHeader />
-          <Switch>
-            <Route exact path="/">
-              <Redirect to={`/today`} />{' '}
-            </Route>
-            <Route path="/today" component={Weather}></Route>
-            <Route path="/longterm" component={LongtermWeather}></Route>
-          </Switch>
-        </Router>
-      </CityContextProvider>
-    </LocationContextProvider>
+    <TemperatureContextProvider>
+      <LocationContextProvider>
+        <CityContextProvider>
+          <Router>
+            <DisplayHeader />
+            <Switch>
+              <Route exact path="/">
+                <Redirect to={`/today`} />{' '}
+              </Route>
+              <Route path="/today" component={Weather}></Route>
+              <Route path="/longterm" component={LongtermWeather}></Route>
+            </Switch>
+          </Router>
+        </CityContextProvider>
+      </LocationContextProvider>
+    </TemperatureContextProvider>
   );
 }
 

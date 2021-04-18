@@ -1,9 +1,13 @@
 // this imports the style as a JS object
 import styles from './TempButton.module.css';
 import React, { useState } from 'react';
+import { useTemperatureContext } from '../../../context/TemperatureContext';
 
 function TempButton() {
   const [showState, setShowState] = useState(false);
+  const temperatureContext = useTemperatureContext();
+
+  // change to react style and not use window.onclick
   window.onclick = function (event) {
     if (!event.target.matches('styles.dropBtn')) {
       const dropdowns = document.getElementsByClassName(
@@ -35,8 +39,12 @@ function TempButton() {
             className={styles.tempDropdown}
             className={styles.dropdownContent}
           >
-            <a href="#">Celsius</a>
-            <a href="#">Fahrenheit</a>
+            <a href="#" onClick={() => temperatureContext.setUnit('metric')}>
+              Celsius
+            </a>
+            <a href="#" onClick={() => temperatureContext.setUnit('imperial')}>
+              Fahrenheit
+            </a>
           </div>
         ) : null}
       </div>

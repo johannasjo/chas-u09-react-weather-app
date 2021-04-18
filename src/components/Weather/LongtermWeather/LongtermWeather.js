@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useCityContext } from '../../../context/CityContext';
 import { useLocationContext } from '../../../context/LocationContext';
+import { useTemperatureContext } from '../../../context/TemperatureContext';
 import styles from './LongtermWeather.module.css';
 
 const LongtermWeather = (props) => {
-  // destructure props
-  const { weather } = props;
-
   const [loadingState, setLoadingState] = useState(null);
   const [longtermWeatherState, setLongtermWeatherState] = useState(null);
   const cityContext = useCityContext();
   const locationContext = useLocationContext();
+  const temperatureContext = useTemperatureContext();
   const daily = new URLSearchParams(props.location.search).has('daily');
 
   function convertEpochToLocaleTime(epochTime) {
@@ -60,14 +59,14 @@ const LongtermWeather = (props) => {
     const dailyWeatherQueryParams = new URLSearchParams({
       lat,
       lon,
-      units: 'metric',
+      units: temperatureContext.unit,
       exclude: 'alerts,current,hourly,minutely',
       appid: process.env.REACT_APP_WEATHER_API_KEY,
     });
     const dailyWeatherApiUrl = `https://api.openweathermap.org/data/2.5/onecall?${dailyWeatherQueryParams.toString()}`;
     const hourlyWeatherQueryParams = new URLSearchParams({
       q: cityContext,
-      units: 'metric',
+      units: temperatureContext.unit,
       cnt: 8,
       appid: process.env.REACT_APP_WEATHER_API_KEY,
     });
@@ -84,7 +83,7 @@ const LongtermWeather = (props) => {
         setLongtermWeatherState(weatherData);
         setLoadingState(false);
       });
-  }, [cityContext, locationContext]);
+  }, [cityContext, locationContext, temperatureContext]);
 
   // check if props is undefined
   if (!longtermWeatherState || longtermWeatherState.length === 0)

@@ -1,11 +1,13 @@
 import styles from './Weather.module.css';
 import { useState, useEffect } from 'react';
 import { useLocationContext } from '../../context/LocationContext';
+import { useTemperatureContext } from '../../context/TemperatureContext';
 
 const Weather = (props) => {
   const [loadingState, setLoadingState] = useState(null);
   const [currentWeatherState, setCurrentWeatherState] = useState(null);
   const locationContext = useLocationContext();
+  const temperatureContext = useTemperatureContext();
 
   // convert time for sunrise/sunset
   function convertEpochToLocaleTime(epochTime) {
@@ -22,10 +24,15 @@ const Weather = (props) => {
     // destructure coordinates from api
     const { currentPosition } = locationContext;
 
-    // get keys from the incoming object
+    const currentWeatherQueryParams = new URLSearchParams({
+      lat: currentPosition.lat,
+      lon: currentPosition.lon,
+      units: temperatureContext.unit,
+      appid: process.env.REACT_APP_WEATHER_API_KEY,
+    });
 
     fetch(
-      `http://api.openweathermap.org/data/2.5/weather?lat=${currentPosition.lat}&lon=${currentPosition.lon}&units=metric&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+      `http://api.openweathermap.org/data/2.5/weather?${currentWeatherQueryParams.toString()}`
     )
       .then((response) => {
         return response.json();
@@ -35,7 +42,7 @@ const Weather = (props) => {
         setCurrentWeatherState(formatWeatherData(apiReply));
         setLoadingState(false);
       });
-  }, [locationContext]);
+  }, [locationContext, temperatureContext]);
 
   const iconUrl = 'http://openweathermap.org/img/wn/';
 
