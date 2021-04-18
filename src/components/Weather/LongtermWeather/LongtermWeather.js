@@ -53,12 +53,12 @@ const LongtermWeather = (props) => {
     if (!cityContext) {
       return;
     }
-    const lat = 59.3;
-    const lon = 18.07;
+
+    const { currentPosition } = locationContext;
 
     const dailyWeatherQueryParams = new URLSearchParams({
-      lat,
-      lon,
+      lat: currentPosition.lat,
+      lon: currentPosition.lon,
       units: temperatureContext.unit,
       exclude: 'alerts,current,hourly,minutely',
       appid: process.env.REACT_APP_WEATHER_API_KEY,
