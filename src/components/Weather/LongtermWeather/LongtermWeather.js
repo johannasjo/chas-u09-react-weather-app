@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
-
+import { useCityContext } from '../../../context/CityContext';
+import { useLocationContext } from '../../../context/LocationContext';
 import styles from './LongtermWeather.module.css';
 
 const LongtermWeather = (props) => {
-  console.log(props);
   // destructure props
   const { weather } = props;
 
   const [loadingState, setLoadingState] = useState(null);
   const [longtermWeatherState, setLongtermWeatherState] = useState(null);
+  const cityContext = useCityContext();
+  const locationContext = useLocationContext();
   const daily = new URLSearchParams(props.location.search).has('daily');
-
-  console.log(daily);
 
   function convertEpochToLocaleTime(epochTime) {
     return new Date(parseInt(epochTime) * 1000).toLocaleTimeString();
@@ -51,11 +51,27 @@ const LongtermWeather = (props) => {
   useEffect(() => {
     setLoadingState(true);
     // get keys from the incoming object
-
+    if (!cityContext) {
+      return;
+    }
     const lat = 59.3;
     const lon = 18.07;
-    const dailyWeatherApiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&exclude=alerts,current,hourly,minutely&appid=${process.env.REACT_APP_WEATHER_API_KEY}`;
-    const hourlyWeatherApiUrl = `http://api.openweathermap.org/data/2.5/forecast?q=stockholm&units=metric&cnt=8&appid=${process.env.REACT_APP_WEATHER_API_KEY}`;
+
+    const dailyWeatherQueryParams = new URLSearchParams({
+      lat,
+      lon,
+      units: 'metric',
+      exclude: 'alerts,current,hourly,minutely',
+      appid: process.env.REACT_APP_WEATHER_API_KEY,
+    });
+    const dailyWeatherApiUrl = `https://api.openweathermap.org/data/2.5/onecall?${dailyWeatherQueryParams.toString()}`;
+    const hourlyWeatherQueryParams = new URLSearchParams({
+      q: cityContext,
+      units: 'metric',
+      cnt: 8,
+      appid: process.env.REACT_APP_WEATHER_API_KEY,
+    });
+    const hourlyWeatherApiUrl = `http://api.openweathermap.org/data/2.5/forecast/?${hourlyWeatherQueryParams.toString()}`;
     fetch(daily ? dailyWeatherApiUrl : hourlyWeatherApiUrl)
       .then((response) => {
         return response.json();
@@ -68,7 +84,7 @@ const LongtermWeather = (props) => {
         setLongtermWeatherState(weatherData);
         setLoadingState(false);
       });
-  }, []);
+  }, [cityContext, locationContext]);
 
   // check if props is undefined
   if (!longtermWeatherState || longtermWeatherState.length === 0)
