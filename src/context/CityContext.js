@@ -1,0 +1,44 @@
+import React from 'react';
+import { useState, useEffect, useContext } from 'react';
+import { useLocationContext } from './LocationContext';
+
+const CityContext = React.createContext({});
+
+export function CityContextProvider(props) {
+  const [cityState, setCityState] = useState(null);
+  const locationContext = useLocationContext();
+
+  // get geolocation
+  async function getCityByLocation(lat, lon) {
+    const result = await fetch(
+      `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_WEATHER_API_KEY}`
+    );
+    return result.json();
+  }
+
+  useEffect(() => {
+    if (locationContext.currentPosition === null) {
+      return;
+    }
+    // destructure coordinates from geolocation api
+    const { currentPosition } = locationContext;
+
+    async function updateCityState() {
+      const city = await getCityByLocation(
+        currentPosition.lat,
+        currentPosition.lon
+      );
+
+      setCityState(city[0].name);
+    }
+    updateCityState();
+  }, [locationContext]);
+
+  return (
+    <CityContext.Provider value={cityState}>
+      {props.children}
+    </CityContext.Provider>
+  );
+}
+
+export const useCityContext = () => React.useContext(CityContext);
