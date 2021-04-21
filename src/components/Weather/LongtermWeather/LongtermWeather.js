@@ -12,7 +12,10 @@ const LongtermWeather = (props) => {
   const temperatureContext = useTemperatureContext();
 
   function convertEpochToLocaleTime(epochTime) {
-    return new Date(parseInt(epochTime) * 1000).toLocaleTimeString();
+    return new Date(parseInt(epochTime) * 1000).toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
   }
 
   function convertEpochToLocaleDate(epochTime) {
@@ -22,6 +25,8 @@ const LongtermWeather = (props) => {
   const iconUrl = 'http://openweathermap.org/img/wn/';
 
   const formatDailyWeatherData = (apiReply) => {
+    let sunrise = convertEpochToLocaleTime(apiReply.current.sunrise);
+    let sunset = convertEpochToLocaleTime(apiReply.current.sunset);
     return apiReply.daily.map((item) => ({
       dateTime: convertEpochToLocaleDate(item.dt),
       temp: Math.floor(item.temp.day),
@@ -29,7 +34,8 @@ const LongtermWeather = (props) => {
       windSpeed: item.wind_speed,
       icon: `${iconUrl}${item.weather[0].icon}.png`,
       main: item.weather[0].main,
-      // sunrise & sunset
+      sunrise,
+      sunset,
     }));
   };
 
@@ -41,7 +47,6 @@ const LongtermWeather = (props) => {
       windSpeed: item.wind.speed,
       icon: `${iconUrl}${item.weather[0].icon}.png`,
       main: item.weather[0].main,
-      // sunrise & sunset
     }));
   };
 
@@ -61,14 +66,14 @@ const LongtermWeather = (props) => {
       lat: currentPosition.lat,
       lon: currentPosition.lon,
       units: temperatureContext.unit,
-      exclude: 'alerts,current,hourly,minutely',
+      exclude: 'alerts,hourly,minutely',
       appid: process.env.REACT_APP_WEATHER_API_KEY,
     });
     const dailyWeatherApiUrl = `https://api.openweathermap.org/data/2.5/onecall?${dailyWeatherQueryParams.toString()}`;
     const hourlyWeatherQueryParams = new URLSearchParams({
       q: cityContext,
       units: temperatureContext.unit,
-      cnt: 8,
+      cnt: 5,
       appid: process.env.REACT_APP_WEATHER_API_KEY,
     });
     const hourlyWeatherApiUrl = `http://api.openweathermap.org/data/2.5/forecast/?${hourlyWeatherQueryParams.toString()}`;
@@ -104,6 +109,7 @@ const LongtermWeather = (props) => {
               />
             </td>
             <td>{weatherInfo.temp} C</td>
+            <td>Sunrise: {weatherInfo.sunrise}</td>
           </tr>
         ))}
       </table>
