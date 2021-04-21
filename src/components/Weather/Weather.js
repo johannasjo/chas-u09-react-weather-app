@@ -2,6 +2,7 @@ import styles from './Weather.module.css';
 import { useState, useEffect } from 'react';
 import { useLocationContext } from '../../context/LocationContext';
 import { useTemperatureContext } from '../../context/TemperatureContext';
+import LongtermWeather from '../Weather/LongtermWeather/LongtermWeather';
 
 const Weather = (props) => {
   const [loadingState, setLoadingState] = useState(null);
@@ -103,6 +104,9 @@ const Weather = (props) => {
           </div>
         </div>
       </div>
+      <>
+        <LongtermWeather days={7} granularity={24} />
+      </>
     </div>
 
     // 5 day prognosis

@@ -3,14 +3,17 @@ import { useCityContext } from '../../../context/CityContext';
 import { useLocationContext } from '../../../context/LocationContext';
 import { useTemperatureContext } from '../../../context/TemperatureContext';
 import styles from './LongtermWeather.module.css';
+import Accordion from '../../Accordion/Accordion';
 
 const LongtermWeather = (props) => {
   const [loadingState, setLoadingState] = useState(null);
   const [longtermWeatherState, setLongtermWeatherState] = useState(null);
-  const [dailyState, setDailyState] = useState(false);
+  const [dailyState, setDailyState] = useState(true);
   const cityContext = useCityContext();
   const locationContext = useLocationContext();
   const temperatureContext = useTemperatureContext();
+
+  const listCount = dailyState ? 5 : 8;
 
   function convertEpochToLocaleTime(epochTime) {
     return new Date(parseInt(epochTime) * 1000).toLocaleTimeString([], {
@@ -59,10 +62,13 @@ const LongtermWeather = (props) => {
       return;
     }
 
-    const isDailyWeather = new URLSearchParams(props.location.search).has(
-      'daily'
-    );
-    setDailyState(isDailyWeather);
+    let isDailyWeather = true;
+
+    if (props?.location?.search) {
+      isDailyWeather = new URLSearchParams(props.location.search).has('daily');
+      setDailyState(isDailyWeather);
+    }
+
     const { currentPosition } = locationContext;
 
     const dailyWeatherQueryParams = new URLSearchParams({
@@ -85,46 +91,27 @@ const LongtermWeather = (props) => {
         return response.json();
       })
       .then((apiReply) => {
-        console.log({ longtermWeatherApiReply: apiReply });
         const weatherData = isDailyWeather
           ? formatDailyWeatherData(apiReply)
           : formatHourlyWeatherData(apiReply);
         setLongtermWeatherState(weatherData);
         setLoadingState(false);
       });
-  }, [cityContext, locationContext, temperatureContext, props.location.search]);
+  }, [cityContext, locationContext, temperatureContext, dailyState]);
 
   // check if props is undefined
   if (!longtermWeatherState || longtermWeatherState.length === 0)
     return <p>Not able to fetch that weather</p>;
   return (
-    <div className={styles.flexContainer}>
+    <div>
       {dailyState ? <h1>5 DAY PROGNOSIS</h1> : <h1>24 HOUR PROGNOSIS</h1>}
 
-      <table className={styles.container}>
-        {longtermWeatherState.map((weatherInfo) => (
-          <tr className={styles.row}>
-            <td className={styles.date}>{weatherInfo.dateTime}</td>
-            <td className={styles.temp}>{weatherInfo.temp}°</td>
-            <td>
-              <img
-                src={weatherInfo.icon}
-                className={styles.weatherIcon}
-                alt="icon symbolizing the weather today"
-              />
-            </td>
-
-            {dailyState ? (
-              <>
-                <td>Sunrise: {weatherInfo.sunrise}</td>
-                <td>Sunset: {weatherInfo.sunset}</td>
-              </>
-            ) : null}
-          </tr>
-        ))}
-      </table>
+      {longtermWeatherState.slice(0, listCount).map((weatherInfo) => (
+        <>
+          <Accordion weatherData={weatherInfo}></Accordion>
+        </>
+      ))}
     </div>
   );
 };
-
 export default LongtermWeather;

@@ -18,9 +18,9 @@ function Navbar() {
               5 Days
             </NavbarLink>
           </li>
-          <li className={styles.navLink}>
+          {/*  <li className={styles.navLink}>
             <NavbarLink to={`/graphs`}> Graphs</NavbarLink>
-          </li>
+          </li> */}
           <Button />
         </ul>
       </nav>

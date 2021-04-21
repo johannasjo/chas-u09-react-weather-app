@@ -1,6 +1,5 @@
-import './App.css';
+import styles from './App.module.css';
 import React from 'react';
-import { useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Route,
@@ -23,7 +22,7 @@ function App() {
             <DisplayHeader />
             <Switch>
               <Route exact path="/">
-                <Redirect to={`/today`} />{' '}
+                <Redirect to={`/today`} />
               </Route>
               <Route path="/today" component={Weather}></Route>
               <Route path="/longterm" component={LongtermWeather}></Route>
