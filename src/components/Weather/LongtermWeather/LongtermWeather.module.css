@@ -1,0 +1,42 @@
+.flexContainer {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+}
+
+
+.container {
+    width: 80%;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: center;
+    background-color: white;
+
+}
+
+.row {
+    width: 100%;
+    border-top: 2px solid black;
+    background-color: white;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.date {
+    font-size: 2em;
+}
+
+.weatherIcon {
+    height: 5em;
+}
+
+.temp {
+    font-size: 3em;
+   
+}

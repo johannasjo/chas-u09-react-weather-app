@@ -74,7 +74,7 @@ const Weather = (props) => {
       </span>
       <div key={currentWeatherState.id}>
         <div className={styles.tempWrapper}>
-          <h1 className={styles.tempCelcius}>{currentWeatherState.temp}°C</h1>
+          <h1 className={styles.tempCelcius}>{currentWeatherState.temp}°</h1>
           <div className={styles.iconWrapper}>
             <img
               src={currentWeatherState.icon}

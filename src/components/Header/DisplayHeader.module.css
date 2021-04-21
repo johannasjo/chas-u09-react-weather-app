@@ -1,9 +1,10 @@
 /* Header style */
 .header {
-    background-color: rgba(30, 30, 192, 0.85);
+    background-color: #039;
+    
 }
 
 .title {
-    padding-top: 1em;
     text-align: center;
+    color: white;
 }
