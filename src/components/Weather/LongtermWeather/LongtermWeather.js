@@ -8,12 +8,19 @@ import Accordion from '../../Accordion/Accordion';
 const LongtermWeather = (props) => {
   const [loadingState, setLoadingState] = useState(null);
   const [longtermWeatherState, setLongtermWeatherState] = useState(null);
-  const [dailyState, setDailyState] = useState(true);
+  const [dailyState, setDailyState] = useState(false);
   const cityContext = useCityContext();
   const locationContext = useLocationContext();
   const temperatureContext = useTemperatureContext();
+  const isDailyWeather = props.days === 1;
 
-  const listCount = dailyState ? 5 : 8;
+  const weatherCount = isDailyWeather ? 8 : props.days;
+  console.log(
+    'this is the weather count',
+    weatherCount,
+    isDailyWeather,
+    props.days
+  );
 
   function convertEpochToLocaleTime(epochTime) {
     return new Date(parseInt(epochTime) * 1000).toLocaleTimeString([], {
@@ -54,19 +61,11 @@ const LongtermWeather = (props) => {
     }));
   };
 
-  // get 3-hour and 5-day prognosis
   useEffect(() => {
+    console.log('inside function');
     setLoadingState(true);
-    // get keys from the incoming object
     if (!cityContext) {
       return;
-    }
-
-    let isDailyWeather = true;
-
-    if (props?.location?.search) {
-      isDailyWeather = new URLSearchParams(props.location.search).has('daily');
-      setDailyState(isDailyWeather);
     }
 
     const { currentPosition } = locationContext;
@@ -86,27 +85,33 @@ const LongtermWeather = (props) => {
       appid: process.env.REACT_APP_WEATHER_API_KEY,
     });
     const hourlyWeatherApiUrl = `http://api.openweathermap.org/data/2.5/forecast/?${hourlyWeatherQueryParams.toString()}`;
-    fetch(isDailyWeather ? dailyWeatherApiUrl : hourlyWeatherApiUrl)
+    fetch(isDailyWeather ? hourlyWeatherApiUrl : dailyWeatherApiUrl)
       .then((response) => {
         return response.json();
       })
       .then((apiReply) => {
         const weatherData = isDailyWeather
-          ? formatDailyWeatherData(apiReply)
-          : formatHourlyWeatherData(apiReply);
+          ? formatHourlyWeatherData(apiReply)
+          : formatDailyWeatherData(apiReply);
         setLongtermWeatherState(weatherData);
         setLoadingState(false);
       });
-  }, [cityContext, locationContext, temperatureContext, dailyState]);
+  }, [cityContext, locationContext, temperatureContext, props.days]);
 
   // check if props is undefined
-  if (!longtermWeatherState || longtermWeatherState.length === 0)
+  if (!longtermWeatherState || longtermWeatherState.length === 0) {
     return <p>Not able to fetch that weather</p>;
+  }
+
   return (
     <div>
-      {dailyState ? <h1>5 DAY PROGNOSIS</h1> : <h1>24 HOUR PROGNOSIS</h1>}
+      {isDailyWeather ? (
+        <h1>24 HOUR PROGNOSIS</h1>
+      ) : (
+        <h1> {props.days} DAY PROGNOSIS</h1>
+      )}
 
-      {longtermWeatherState.slice(0, listCount).map((weatherInfo) => (
+      {longtermWeatherState.slice(0, weatherCount).map((weatherInfo) => (
         <>
           <Accordion weatherData={weatherInfo}></Accordion>
         </>

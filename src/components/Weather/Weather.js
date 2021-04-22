@@ -105,7 +105,7 @@ const Weather = (props) => {
         </div>
       </div>
       <>
-        <LongtermWeather days={7} granularity={24} />
+        <LongtermWeather days={7} />
       </>
     </div>
 

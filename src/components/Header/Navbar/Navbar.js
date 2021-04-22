@@ -11,10 +11,10 @@ function Navbar() {
             <NavbarLink to={`/today`}> Today</NavbarLink>
           </li>
           <li className={styles.navLink}>
-            <NavbarLink to={`/longterm`}> 3 Hours</NavbarLink>
+            <NavbarLink to={`/longterm?days=1`}> 3 Hours</NavbarLink>
           </li>
           <li className={styles.navLink}>
-            <NavbarLink to={`/longterm?daily`} replace>
+            <NavbarLink to={`/longterm?days=5`} replace>
               5 Days
             </NavbarLink>
           </li>

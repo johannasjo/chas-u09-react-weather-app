@@ -25,7 +25,19 @@ function App() {
                 <Redirect to={`/today`} />
               </Route>
               <Route path="/today" component={Weather}></Route>
-              <Route path="/longterm" component={LongtermWeather}></Route>
+              <Route
+                path="/longterm"
+                render={(props) => {
+                  let days = 7;
+                  if (props?.location?.search) {
+                    days = +new URLSearchParams(props.location.search).get(
+                      'days'
+                    );
+                  }
+
+                  return <LongtermWeather days={days} />;
+                }}
+              ></Route>
             </Switch>
           </Router>
         </CityContextProvider>
