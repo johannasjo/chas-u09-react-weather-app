@@ -65,6 +65,7 @@ const Weather = (props) => {
     return <p>Not able to fetch that weather</p>;
   return (
     // one day prognosis
+    <>
     <div className={styles.card}>
       <span className={styles.cardTitle}>
         Todays weather in {currentWeatherState.name},{' '}
@@ -104,10 +105,11 @@ const Weather = (props) => {
           </div>
         </div>
       </div>
+      </div>
       <>
         <LongtermWeather days={7} />
       </>
-    </div>
+    </>
 
     // 5 day prognosis
     // for each loop in a table?

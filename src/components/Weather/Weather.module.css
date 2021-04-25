@@ -1,5 +1,11 @@
+h1 {
+    text-align: center;
+    margin: 2em;
+}
+
+
 .card {
-    background-color:rgba(30, 30, 192, 0.85);
+    background-color: #039;
     color: whitesmoke;
 }
 
@@ -11,8 +17,8 @@
 
 .cardSubtitle {
     font-size: 25px;
-    color: rgb(14, 13, 13);
     padding-left: 50px;
+    padding-top: 0.5em;
 }
 
 .cardTitle, .cardSubtitle {
@@ -29,8 +35,9 @@
 .wrapper {
     display: flex;
     flex-direction: column;
-    padding: 0em 0.5em;
-    border: 1px solid black;
+    align-items: center;
+    padding: 0.5em;
+    border: 1px solid whitesmoke;
     margin-bottom: 1em;
 }
 
@@ -41,7 +48,8 @@
 
 .tempWrapper {
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    height: 300px;
 }
 
 .tempCelcius {
@@ -52,5 +60,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 4em;
 }
 

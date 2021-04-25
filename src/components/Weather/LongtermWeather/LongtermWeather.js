@@ -104,19 +104,21 @@ const LongtermWeather = (props) => {
   }
 
   return (
-    <div>
+    <>
+    {/* // change title of page based on amount of days  */}
       {isDailyWeather ? (
         <h1>24 HOUR PROGNOSIS</h1>
       ) : (
         <h1> {props.days} DAY PROGNOSIS</h1>
       )}
 
+      {/* only pull info on selected amount of days  */}
       {longtermWeatherState.slice(0, weatherCount).map((weatherInfo) => (
         <>
-          <Accordion weatherData={weatherInfo}></Accordion>
+          <Accordion weatherData={weatherInfo} ></Accordion>
         </>
       ))}
-    </div>
+    </>
   );
 };
 export default LongtermWeather;

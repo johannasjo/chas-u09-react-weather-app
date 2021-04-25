@@ -1,10 +1,11 @@
 /* Header style */
 .header {
     background-color: #039;
-    
 }
 
 .title {
     text-align: center;
     color: white;
+    padding: 50px;
+    margin: 0;
 }
