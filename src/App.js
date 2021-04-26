@@ -13,6 +13,8 @@ import { LocationContextProvider } from './context/LocationContext';
 import { CityContextProvider } from './context/CityContext';
 import { TemperatureContextProvider } from './context/TemperatureContext';
 
+import 'fontsource-roboto';
+
 function App() {
   return (
     <TemperatureContextProvider>

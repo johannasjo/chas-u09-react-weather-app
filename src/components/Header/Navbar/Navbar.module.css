@@ -5,10 +5,12 @@
   padding: 0;
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  height: 60px;
 
 }
 
-.navLink {
+li {
     color: white;
     padding: 16px;
     font-size: 20px;
@@ -16,7 +18,7 @@
     cursor: pointer;
 }
 
-.navLink:hover {
+li:hover {
   text-decoration: underline;
   transform: scale(1.15); 
 }

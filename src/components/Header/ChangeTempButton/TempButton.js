@@ -2,54 +2,32 @@
 import styles from './TempButton.module.css';
 import React, { useState } from 'react';
 import { useTemperatureContext } from '../../../context/TemperatureContext';
+import ToggleButton from '@material-ui/lab/ToggleButton';
+import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 
-function TempButton() {
-  const [showState, setShowState] = useState(false);
+function TempButtons() {
   const temperatureContext = useTemperatureContext();
 
-  // change to react style and not use window.onclick
-  window.onclick = function (event) {
-    if (!event.target.matches('styles.dropBtn')) {
-      const dropdowns = document.getElementsByClassName(
-        'styles.dropdownContent'
-      );
-      let i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('styles.show')) {
-          openDropdown.classList.remove('styles.show');
-        }
-      }
-    }
-  };
+  const handleToggleTemp = (event, value) => {
+    
+    temperatureContext.setUnit(value)
+  }
 
   return (
     <div>
-      <div className={styles.tempSelection}>
-        <button
-          onClick={() => {
-            setShowState(!showState);
-          }}
-          className={styles.dropBtn}
-        >
-          Temperature
-        </button>
-        {showState ? (
-          <div
-            className={styles.tempDropdown}
-            className={styles.dropdownContent}
-          >
-            <a href="#" onClick={() => temperatureContext.setUnit('metric')}>
-              Celsius
-            </a>
-            <a href="#" onClick={() => temperatureContext.setUnit('imperial')}>
-              Fahrenheit
-            </a>
-          </div>
-        ) : null}
-      </div>
+      <ToggleButtonGroup
+      value={temperatureContext.unit}
+      exclusive
+      onChange={handleToggleTemp}
+      aria-label='temperature measurement'
+      className={styles.toggleBtns}
+      >
+        <ToggleButton value='metric' aria-label='celcius'><div className={styles.toggleBtn}>C°</div></ToggleButton>
+        <ToggleButton value='imperial' aria-label='fahrehnheit'><div className={styles.toggleBtn}>F°</div></ToggleButton>
+
+      </ToggleButtonGroup>
     </div>
   );
 }
 
-export default TempButton;
+export default TempButtons;

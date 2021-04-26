@@ -15,12 +15,6 @@ const LongtermWeather = (props) => {
   const isDailyWeather = props.days === 1;
 
   const weatherCount = isDailyWeather ? 8 : props.days;
-  console.log(
-    'this is the weather count',
-    weatherCount,
-    isDailyWeather,
-    props.days
-  );
 
   function convertEpochToLocaleTime(epochTime) {
     return new Date(parseInt(epochTime) * 1000).toLocaleTimeString([], {
@@ -62,7 +56,6 @@ const LongtermWeather = (props) => {
   };
 
   useEffect(() => {
-    console.log('inside function');
     setLoadingState(true);
     if (!cityContext) {
       return;
