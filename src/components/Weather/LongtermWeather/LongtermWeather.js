@@ -3,7 +3,8 @@ import { useCityContext } from '../../../context/CityContext';
 import { useLocationContext } from '../../../context/LocationContext';
 import { useTemperatureContext } from '../../../context/TemperatureContext';
 import Accordion from '../../Accordion/Accordion';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Spinner from '../utils/Spinner.js';
+import styles from './LongtermWeather.module.css';
 
 const LongtermWeather = props => {
   const [loadingState, setLoadingState] = useState(null);
@@ -93,7 +94,7 @@ const LongtermWeather = props => {
   }, [cityContext, locationContext, temperatureContext, props.days]);
 
    if (loadingState) {
-    return <CircularProgress color='secondary'/>;
+    return  <div className={styles.spinnerContainer}><Spinner/></div>
   }
 
   // check if props is undefined
