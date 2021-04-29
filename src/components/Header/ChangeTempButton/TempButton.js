@@ -1,6 +1,6 @@
 // this imports the style as a JS object
 import styles from './TempButton.module.css';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTemperatureContext } from '../../../context/TemperatureContext';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';

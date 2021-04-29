@@ -2,13 +2,11 @@ import { useEffect, useState } from 'react';
 import { useCityContext } from '../../../context/CityContext';
 import { useLocationContext } from '../../../context/LocationContext';
 import { useTemperatureContext } from '../../../context/TemperatureContext';
-import styles from './LongtermWeather.module.css';
 import Accordion from '../../Accordion/Accordion';
 
 const LongtermWeather = (props) => {
   const [loadingState, setLoadingState] = useState(null);
   const [longtermWeatherState, setLongtermWeatherState] = useState(null);
-  const [dailyState, setDailyState] = useState(false);
   const cityContext = useCityContext();
   const locationContext = useLocationContext();
   const temperatureContext = useTemperatureContext();
@@ -110,7 +108,7 @@ const LongtermWeather = (props) => {
       {/* only pull info on selected amount of days  */}
       {longtermWeatherState.slice(0, weatherCount).map((weatherInfo) => (
         <>
-          <Accordion weatherData={weatherInfo} ></Accordion>
+          <Accordion key={weatherInfo.id} weatherData={weatherInfo} ></Accordion>
         </>
       ))}
     </>
