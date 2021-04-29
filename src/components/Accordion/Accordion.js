@@ -52,11 +52,13 @@ function SimpleAccordion({ weatherData }) {
           </div>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography className={styles.accordionBox}>
+        
+          <div className={styles.accordionBox}>
             <p className={styles.info}>Wind: {weatherData.windSpeed} m/s</p>
             <p className={styles.info}>Humidity: {weatherData.humidity}%</p>
             {sunInformation}
-          </Typography>
+          </div>
+         
         </AccordionDetails>
       </Accordion>
     </div>

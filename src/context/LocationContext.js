@@ -8,14 +8,22 @@ export function LocationContextProvider(props) {
 
   // get geolocation
   async function getPosition() {
-    // create promise of non promise based API
+    /**
+     * create promise of non promise based API:
+     * https://stackblitz.com/edit/js-naive-promise-example?file=index.js
+     */
     const positionPromise = new Promise((resolve, reject) => {
       navigator.geolocation.getCurrentPosition(resolve, reject);
     });
-    const {
-      coords: { latitude: lat, longitude: lon },
-    } = await positionPromise;
-    return { lat, lon };
+    try {
+      const {
+        coords: { latitude: lat, longitude: lon }
+      } = await positionPromise;
+      return { lat, lon };
+    } catch (error) {
+      console.log('Error while getting current position', error);
+      throw error;
+    }
   }
 
   useEffect(() => {

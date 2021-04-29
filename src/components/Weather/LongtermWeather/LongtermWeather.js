@@ -33,6 +33,7 @@ const LongtermWeather = (props) => {
 
   const formatDailyWeatherData = (apiReply) => {
     return apiReply.daily.map((item) => ({
+      id: item.dt,
       dateTime: convertEpochToLocaleDate(item.dt),
       temp: Math.floor(item.temp.day),
       humidity: item.humidity,
@@ -46,6 +47,7 @@ const LongtermWeather = (props) => {
 
   const formatHourlyWeatherData = (apiReply) => {
     return apiReply.list.map((item) => ({
+      id: item.dt,
       dateTime: convertEpochToLocaleTime(item.dt),
       temp: Math.floor(item.main.temp),
       humidity: item.main.humidity,

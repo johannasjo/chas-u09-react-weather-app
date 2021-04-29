@@ -17,7 +17,7 @@ export function CityContextProvider(props) {
   }
 
   useEffect(() => {
-    if (locationContext.currentPosition === null) {
+    if (locationContext.currentPosition === null || locationContext.currentPosition === undefined) {
       return;
     }
     // destructure coordinates from geolocation api
@@ -29,12 +29,15 @@ export function CityContextProvider(props) {
         currentPosition.lon
       );
 
+      // set city name to api reply for those coordinates
       setCityState(city[0].name);
     }
+    console.log(locationContext.currentPosition);
     updateCityState();
   }, [locationContext]);
 
   return (
+    // pass in the value and props so it's accessible in other components
     <CityContext.Provider value={cityState}>
       {props.children}
     </CityContext.Provider>
